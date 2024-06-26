@@ -73,7 +73,7 @@ export const loginUser = async (req, res) => {
             // secure: process.env.NODE_ENV === 'production',
             // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
             httpsOnly: process.env.VITE_NODE_ENV === 'production',
-            secure: process.env.VITE_NODE_ENV === 'production',
+            secure: true,
             sameSite: 'None'
 
 
