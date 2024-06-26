@@ -69,9 +69,14 @@ export const loginUser = async (req, res) => {
         );
 
         res.cookie('token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            // httpsOnly: true,
+            // secure: process.env.NODE_ENV === 'production',
+            // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            httpsOnly: process.env.VITE_NODE_ENV === 'production',
+            secure: process.env.VITE_NODE_ENV === 'production',
+            sameSite: 'None'
+
+
         });
 
         return res.status(200).json({ message: "Logged in successfully", token });
