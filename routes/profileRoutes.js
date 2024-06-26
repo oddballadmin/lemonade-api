@@ -13,7 +13,7 @@ profileRouter.use(cors({
 }));
 
 // API - Routes
-profileRouter.get('/api/profile/appdata', limitRate, protect, getAppData);
-profileRouter.get('/api/profile/jobsdata', limitRate, protect, getUserCreatedJobsData);
+profileRouter.get('/profile/appdata', limitRate, protect, getAppData);
+profileRouter.get('/profile/jobsdata', limitRate, protect, getUserCreatedJobsData);
 
 export default profileRouter;

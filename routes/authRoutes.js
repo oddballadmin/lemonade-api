@@ -15,9 +15,9 @@ authRouter.use(cors({
 }));
 
 // API - Routes
-authRouter.post('/api/register', limitRate, registerUser);
-authRouter.post('/api/login', limitRate, loginUser);
-authRouter.get('/api/profile', limitRate, protect, getProfile);
-authRouter.get('/api/user', limitRate, protect, getUser);
+authRouter.post('/register', limitRate, registerUser);
+authRouter.post('/login', limitRate, loginUser);
+authRouter.get('/profile', limitRate, protect, getProfile);
+authRouter.get('/user', limitRate, protect, getUser);
 
 export default authRouter;
