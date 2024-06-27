@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { createJob, getJobById, filterJobs, updateJobStatus, editJobListing, jobApply, getAllJobs, getApplicationData } from '../controllers/jobController.js';
+import { createJob, getJobById, filterJobs, updateJobStatus, editJobListing, jobApply, getAllJobs, getApplicationData, deleteJob } from '../controllers/jobController.js';
 import protect from '../middleware/authenticate.js';
 import { limitRate } from '../middleware/rate-limiter.js';
 const jobRouter = express.Router();
@@ -15,15 +15,29 @@ jobRouter.use(cors({
 }));
 
 // API - Routes
-jobRouter.post('/jobs/create', limitRate, protect, createJob);
-jobRouter.get('/jobs/all', limitRate, protect, getAllJobs);
-jobRouter.get('/jobs/filter', limitRate, protect, filterJobs)
-jobRouter.get('/jobs/:id', limitRate, protect, getJobById);
-jobRouter.patch('/jobs/update/:id', limitRate, protect, editJobListing);
-jobRouter.get('/jobs/:id/update/status', limitRate, protect, updateJobStatus);
-jobRouter.post('/jobs/apply/:id', limitRate, protect, jobApply);
-jobRouter.get('/jobs/:id/applicants', limitRate, protect, getApplicationData);
+if (process.env.VITE_NODE_ENV === 'production') {
 
+    jobRouter.post('/jobs/create', limitRate, protect, createJob);
+    jobRouter.get('/jobs/all', limitRate, protect, getAllJobs);
+    jobRouter.get('/jobs/filter', limitRate, protect, filterJobs)
+    jobRouter.get('/jobs/:id', limitRate, protect, getJobById);
+    jobRouter.patch('/jobs/update/:id', limitRate, protect, editJobListing);
+    jobRouter.get('/jobs/:id/update/status', limitRate, protect, updateJobStatus);
+    jobRouter.post('/jobs/apply/:id', limitRate, protect, jobApply);
+    jobRouter.get('/jobs/:id/applicants', limitRate, protect, getApplicationData);
+    jobRouter.delete('/jobs/delete/:id', limitRate, protect, deleteJob);
+} else {
+    jobRouter.post('/api/jobs/create', limitRate, protect, createJob);
+    jobRouter.get('/api/jobs/all', limitRate, protect, getAllJobs);
+    jobRouter.get('/api/jobs/filter', limitRate, protect, filterJobs)
+    jobRouter.get('/api/jobs/:id', limitRate, protect, getJobById);
+    jobRouter.patch('/api/jobs/update/:id', limitRate, protect, editJobListing);
+    jobRouter.get('/api/jobs/:id/update/status', limitRate, protect, updateJobStatus);
+    jobRouter.post('/api/jobs/apply/:id', limitRate, protect, jobApply);
+    jobRouter.get('/api/jobs/:id/applicants', limitRate, protect, getApplicationData);
+    jobRouter.delete('/api/jobs/delete/:id', limitRate, protect, deleteJob);
+
+}
 
 
 export default jobRouter;

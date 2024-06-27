@@ -312,3 +312,33 @@ export const getApplicationData = async (req, res) => {
 
 
 };
+export const deleteJob = async (req, res) => {
+    const { id } = req.params;
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!token) return res.status(401).json({ error: 'Unauthorized, token not found' });
+
+    const job = await Job.findById(id);
+    const currentUserId = decoded._id;
+
+    if (!job) {
+        return res.status(404).json({ error: 'Job not found' });
+    }
+    if (!job.createdBy.equals(currentUserId)) {
+        return res.status(401).json({ error: 'Unauthorized, you are not the creator of this job' });
+    }
+
+
+    job.deleteOne({ id }).then(() => {
+
+        return res.json({ message: 'Job deleted' });
+    }).catch((error) => {
+        console.error('Error deleting job:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+    );
+
+
+
+
+}

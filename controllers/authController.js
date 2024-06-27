@@ -67,17 +67,34 @@ export const loginUser = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '48hr' }  // Optional: set token expiration
         );
+        if (process.env.VITE_NODE_ENV === 'production') {
+            res.cookie('token', token, {
+                // httpsOnly: true,
+                // secure: process.env.NODE_ENV === 'production',
+                // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
 
-        res.cookie('token', token, {
-            // httpsOnly: true,
-            // secure: process.env.NODE_ENV === 'production',
-            // sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
-            httpsOnly: process.env.VITE_NODE_ENV === 'production',
-            secure: true,
-            sameSite: 'None'
+                httpsOnly: process.env.VITE_NODE_ENV === 'production',
+                secure: true,
+                sameSite: 'None'
 
 
-        });
+            });
+        }
+        if (process.env.VITE_NODE_ENV === 'development') {
+            res.cookie('token', token, {
+                httpsOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+
+                // httpsOnly: process.env.VITE_NODE_ENV === 'production',
+                // secure: true,
+                // sameSite: 'None'
+
+
+            });
+        }
+
+
 
         return res.status(200).json({ message: "Logged in successfully", token });
     } catch (error) {

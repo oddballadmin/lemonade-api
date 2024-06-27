@@ -15,9 +15,16 @@ authRouter.use(cors({
 }));
 
 // API - Routes
-authRouter.post('/register', limitRate, registerUser);
-authRouter.post('/login', limitRate, loginUser);
-authRouter.get('/profile', limitRate, protect, getProfile);
-authRouter.get('/user', limitRate, protect, getUser);
+if (process.env.VITE_NODE_ENV === 'production') {
+    authRouter.post('/register', limitRate, registerUser);
+    authRouter.post('/login', limitRate, loginUser);
+    authRouter.get('/profile', limitRate, protect, getProfile);
+    authRouter.get('/user', limitRate, protect, getUser);
+} else {
+    authRouter.post('/api/register', registerUser);
+    authRouter.post('/api/login', loginUser);
+    authRouter.get('/api/profile', protect, getProfile);
+    authRouter.get('/api/user', protect, getUser);
+}
 
 export default authRouter;
