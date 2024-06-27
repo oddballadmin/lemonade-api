@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "https://smallworks.netlify.app/api/*"
-  to = "https://lemonade-api.onrender.com/:splat"
+  from = "/api/*"
+  to = "https://lemonade-api.onrender.com/api/:splat"
   status = 200
   force = true
