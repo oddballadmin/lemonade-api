@@ -31,8 +31,8 @@ const corsOptions = {
     origin: process.env.VITE_NODE_ENV == "development" ? "http://localhost:5173" : process.env.VITE_CLIENT_BASE_URL
     ,
     credentials: true,
-    // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    // allowedHeaders: 'Content-Type,Authorization'
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type,Authorization'
 };
 console.log("corsOptions are: ", corsOptions);
 app.use(cors(corsOptions));

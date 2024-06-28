@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.js';
 import Applicant from '../models/applicant.js';
 import 'dotenv/config';
-import { validationResult } from 'express-validator';
 
 export const getAppData = async (req, res) => {
     try {

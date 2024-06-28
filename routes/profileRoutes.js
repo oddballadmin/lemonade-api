@@ -13,13 +13,8 @@ profileRouter.use(cors({
 }));
 
 // API - Routes
-if (process.env.VITE_NODE_ENV === 'production') {
 
-    profileRouter.get('/profile/appdata', limitRate, protect, getAppData);
-    profileRouter.get('/profile/jobsdata', limitRate, protect, getUserCreatedJobsData);
-}
-else {
-    profileRouter.get('/api/profile/appdata', limitRate, protect, getAppData);
-    profileRouter.get('/api/profile/jobsdata', limitRate, protect, getUserCreatedJobsData);
-}
+profileRouter.get('/profile/appdata', limitRate, protect, getAppData);
+profileRouter.get('/profile/jobsdata', limitRate, protect, getUserCreatedJobsData);
+
 export default profileRouter;
