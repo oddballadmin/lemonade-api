@@ -39,7 +39,6 @@ export const registerUser = async (req, res) => {
 
         // Remove password from response
         const userResponse = user.toObject();
-        delete userResponse.password;
 
         return res.status(201).json(userResponse);
     } catch (error) {
